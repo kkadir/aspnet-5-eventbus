@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C92AB33F-597E-46EB-945E-AC0742121259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bussy.Server", "Bussy.Server\Bussy.Server.csproj", "{1F67E76B-9996-4900-B3F6-400998AC1E3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CF48A11F-EE2E-4F1D-A08C-CB043A1B14D5}"
+ProjectSection(SolutionItems) = preProject
+	Dockerfile = Dockerfile
+	.dockerignore = .dockerignore
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F67E76B-9996-4900-B3F6-400998AC1E3D} = {C92AB33F-597E-46EB-945E-AC0742121259}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F67E76B-9996-4900-B3F6-400998AC1E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F67E76B-9996-4900-B3F6-400998AC1E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F67E76B-9996-4900-B3F6-400998AC1E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F67E76B-9996-4900-B3F6-400998AC1E3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
