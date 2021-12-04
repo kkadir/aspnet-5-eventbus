@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Bussy.Server.Domain.Audit;
 
 namespace Bussy.Server.Domain
 {

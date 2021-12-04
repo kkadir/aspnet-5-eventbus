@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Bussy.Server.Domain.Audit
+namespace Bussy.Server.Domain
 {
     public interface ICreationAudited
     {
-        string? CreatedBy { get; set; }
+        string CreatedBy { get; set; }
         
         DateTime CreatedOn { get; set; }
     }

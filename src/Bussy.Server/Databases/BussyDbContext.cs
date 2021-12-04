@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Bussy.Server.Domain;
+using Bussy.Server.Domain.Orders;
 using Bussy.Server.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ namespace Bussy.Server.Databases
         {
             _currentUserService = currentUserService;
         }
+        
+        public DbSet<Order> Orders { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

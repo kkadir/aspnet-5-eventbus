@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
         <LangVersion>10</LangVersion>
@@ -22,6 +22,8 @@
         <PackageReference Include="AutoMapper" Version="10.1.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.5" />
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
@@ -40,6 +42,7 @@
 
     <ItemGroup>
       <Folder Include="Controllers" />
+      <Folder Include="Domain\ExecutionReports" />
     </ItemGroup>
 
 </Project>

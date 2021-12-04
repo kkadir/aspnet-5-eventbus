@@ -5,7 +5,7 @@ namespace Bussy.Server.Services
 {
     public interface ICurrentUserService
     {
-        string? UserId { get; }
+        string UserId { get; }
     }
     
     public class CurrentUserService : ICurrentUserService
@@ -17,6 +17,6 @@ namespace Bussy.Server.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+        public string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }
