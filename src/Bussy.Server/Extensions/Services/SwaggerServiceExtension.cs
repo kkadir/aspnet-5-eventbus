@@ -28,6 +28,8 @@ namespace Bussy.Server.Extensions.Services
                             Url = new Uri("http://www.kadir.co"),
                         },
                     });
+                
+                config.IncludeXmlComments(string.Format(@$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}Bussy.Api.xml"));
             });
         }
         

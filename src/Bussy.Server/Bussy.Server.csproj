@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile></DocumentationFile>
+      <DocumentationFile>Bussy.Api.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -29,6 +29,8 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.12" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Polly" Version="7.2.2" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
         <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
@@ -41,8 +43,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
       <Folder Include="Domain\ExecutionReports" />
+      <Folder Include="Messaging\EventBus" />
     </ItemGroup>
 
 </Project>
