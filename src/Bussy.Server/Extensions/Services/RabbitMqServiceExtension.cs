@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System;
+using System.Net.Security;
+using System.Security.Authentication;
+using Autofac;
 using Bussy.Server.Messaging.EventBus;
 using Bussy.Server.Messaging.EventBusRabbitMq;
 using Microsoft.AspNetCore.Hosting;
@@ -21,8 +24,20 @@ namespace Bussy.Server.Extensions.Services
                 var factory = new ConnectionFactory()
                 {
                     HostName = configuration["EventBusConnection"],
+                    Port = Convert.ToInt32(configuration["EventBusConnectionPort"]),
+                    VirtualHost = configuration["EventBusConnectionVirtualHost"],
                     DispatchConsumersAsync = true
                 };
+                
+                factory.Ssl.Version = SslProtocols.Tls12 | SslProtocols.Ssl3 | SslProtocols.Tls11 | SslProtocols.Ssl2;
+                factory.Ssl.Enabled = true;
+                factory.Ssl.AcceptablePolicyErrors = SslPolicyErrors.RemoteCertificateChainErrors
+                                                     | SslPolicyErrors.RemoteCertificateNameMismatch
+                                                     | SslPolicyErrors.RemoteCertificateNotAvailable;
+                // factory.Ssl.Enabled = true;
+                 factory.Ssl.CertificateValidationCallback = (sender, certificate, chain, errors) => true;
+
+                
 
                 if (!string.IsNullOrEmpty(configuration["EventBusUserName"]))
                 {

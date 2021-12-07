@@ -19,6 +19,7 @@ namespace Bussy.Server.Messaging.EventBusRabbitMq
     public class EventBusRabbitMq : IEventBus, IDisposable
     {
         private const string BrokerName = "bussy_event_bus";
+        private const string BrokerType = "topic";
         private const string AutofacScopeName = "bussy_event_bus";
 
         private readonly IRabbitMqPersistentConnection _persistentConnection;
@@ -87,7 +88,7 @@ namespace Bussy.Server.Messaging.EventBusRabbitMq
             using var channel = _persistentConnection.CreateModel();
             _logger.LogTrace("Declaring RabbitMq exchange to publish event: {EventId}", @event.Id);
 
-            channel.ExchangeDeclare(exchange: BrokerName, type: "direct");
+            channel.ExchangeDeclare(exchange: BrokerName, type: BrokerType);
                                 
             var body = JsonSerializer.SerializeToUtf8Bytes(@event, @event.GetType(), new JsonSerializerOptions
             {
@@ -97,14 +98,13 @@ namespace Bussy.Server.Messaging.EventBusRabbitMq
             policy.Execute(() =>
             {
                 var properties = channel.CreateBasicProperties();
-                properties.DeliveryMode = 2; // persistent
+                properties.DeliveryMode =  2; // persistent
 
                 _logger.LogTrace("Publishing event to RabbitMq: {EventId}", @event.Id);
 
                 channel.BasicPublish(
                     exchange: BrokerName,
                     routingKey: eventName,
-                    mandatory: true,
                     basicProperties: properties,
                     body: body);
             });
@@ -233,7 +233,7 @@ namespace Bussy.Server.Messaging.EventBusRabbitMq
             var channel = _persistentConnection.CreateModel();
 
             channel.ExchangeDeclare(exchange: BrokerName,
-                                    type: "direct");
+                                    type: BrokerType);
 
             channel.QueueDeclare(queue: _queueName,
                                  durable: true,
