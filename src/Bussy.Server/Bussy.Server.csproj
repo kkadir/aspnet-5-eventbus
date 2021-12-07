@@ -44,6 +44,7 @@
 
     <ItemGroup>
       <Folder Include="Domain\ExecutionReports" />
+      <Folder Include="IntegrationEvents\EventHandling" />
     </ItemGroup>
 
 </Project>

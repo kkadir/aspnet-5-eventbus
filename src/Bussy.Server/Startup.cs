@@ -33,6 +33,8 @@ namespace Bussy.Server
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddApiVersioningService();
             services.AddWebApiServices();
+            services.AddRabbitMqPersistenConnectionService(_configuration,_environment);
+            services.AddRabbitMqEventBusService(_configuration,_environment);;
             services.AddHealthChecks();
             services.AddSwaggerService(_configuration);
         }

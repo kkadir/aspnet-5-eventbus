@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Bussy.Server.Domain.Orders.Features;
+using Bussy.Server.IntegrationEvents.Events;
+using Bussy.Server.Messaging.EventBus;
 using Bussy.Server.Models.Order;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace Bussy.Server.Controllers.v1
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IEventBus _eventBus;
 
-        public OrdersController(IMediator mediator)
+        public OrdersController(IMediator mediator, IEventBus eventBus)
         {
             _mediator = mediator;
+            _eventBus = eventBus;
         }
         
         /// <summary>
@@ -37,6 +41,14 @@ namespace Bussy.Server.Controllers.v1
         {
             var command = new AddOrder.AddOrderCommand(orderForCreation);
             var commandResponse = await _mediator.Send(command);
+
+            _eventBus.Publish(new OrderCreatedIntegrationEvent(
+                commandResponse.Id,
+                commandResponse.Account,
+                commandResponse.Symbol,
+                commandResponse.Price,
+                commandResponse.Size
+            ));
 
             return CreatedAtRoute("GetOrder",
                 new { commandResponse.Id },
@@ -132,8 +144,23 @@ namespace Bussy.Server.Controllers.v1
         [HttpPut("{id:guid}", Name = "UpdateOrder")]
         public async Task<IActionResult> UpdateOrder(Guid id, OrderModelForUpdate orderModelForUpdate)
         {
+            var query = new GetOrder.OrderQuery(id);
+            var oldOrderToBeUpdated = await _mediator.Send(query);
+            
             var command = new UpdateOrder.UpdateOrderCommand(id, orderModelForUpdate);
             await _mediator.Send(command);
+            
+            _eventBus.Publish(new OrderModifiedIntegrationEvent(
+                id,
+                oldOrderToBeUpdated.Account,
+                oldOrderToBeUpdated.Symbol,
+                oldOrderToBeUpdated.Price,
+                oldOrderToBeUpdated.Size,
+                orderModelForUpdate.Account,
+                orderModelForUpdate.Symbol,
+                orderModelForUpdate.Price,
+                orderModelForUpdate.Size,
+                false));
 
             return NoContent();
         }
